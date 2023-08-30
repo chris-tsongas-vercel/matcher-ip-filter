@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { get } from '@vercel/edge-config'
 
 export const config = {
   matcher: ['/private'],
 }
 
 export default async function middleware(req: NextRequest) {
-  if (req.ip !== '1.2.3.4') {
+  const allowedIp = await get('ip')
+  if (req.ip !== allowedIp) {
     req.nextUrl.pathname = '404'
     return NextResponse.rewrite(req.nextUrl)
   }
