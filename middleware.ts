@@ -5,7 +5,7 @@ export const config = {
 }
 
 export default async function middleware(req: NextRequest) {
-  if (req.ip !== '71.212.77.182') {
+  if (req.ip !== '1.2.3.4') {
     req.nextUrl.pathname = '404'
     return NextResponse.rewrite(req.nextUrl)
   }
